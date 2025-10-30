@@ -138,6 +138,7 @@ for message in conversation:
 ### 🛡️ Security Vulnerabilities
 
 </div>
+<div align="center">
 | Vulnerability | Example Detection | Fixed Code |
 |---------------|-------------------|------------|
 | **SQL Injection** | `query = "SELECT * FROM users WHERE email = '" + email + "'"` | Parameterized queries |
