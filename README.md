@@ -14,6 +14,7 @@ Code Review Assistant: AI-powered Python code analysis tool that detects securit
 
 [![Hugging Face Model](https://img.shields.io/badge/🤗-Model_Repository-yellow)](https://huggingface.co/alenphilip/Code_Review_Assistant_Model)
 [![Dataset](https://img.shields.io/badge/📊-Training_Dataset-green)](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant)
+[![Dataset](https://img.shields.io/badge/📊-Evaluation_Dataset-green)](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant-Eval)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
