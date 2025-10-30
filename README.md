@@ -625,9 +625,26 @@ def preprocess_logits_for_metrics(logits, labels):
 <h3>📚 Synthetic Dataset Creation</h3>
 <h4>15K+ Carefully Crafted Python Examples</h4>
 
+[![Training Dataset](https://img.shields.io/badge/🤗-Training_Dataset-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant)
+[![Evaluation Dataset](https://img.shields.io/badge/🤗-Evaluation_Dataset-FF6F00?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant-Eval)
+[![Dataset Size](https://img.shields.io/badge/Dataset-15K+_Examples-blue?style=for-the-badge)](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
+
 </div>
 
-The training dataset was **synthetically created** to cover comprehensive code review scenarios across four major categories:
+### 📊 Dataset Statistics & Access
+
+<div align="center">
+
+| Dataset | 🤗 Hugging Face Link | Examples | Size | Download |
+|---------|---------------------|----------|------|----------|
+| **Training** | [`alenphilip/Code-Review-Assistant`](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant) | 13,670 | ~23.5MB | [![Download](https://img.shields.io/badge/Download-Dataset-green?style=flat-square)](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant) |
+| **Evaluation** | [`alenphilip/Code-Review-Assistant-Eval`](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant-Eval) | 1,726 | ~2.9MB | [![Download](https://img.shields.io/badge/Download-Dataset-green?style=flat-square)](https://huggingface.co/datasets/alenphilip/Code-Review-Assistant-Eval) |
+| **Total** | **Both Datasets** | **15,396** | **~26.4MB** | [![HF Hub](https://img.shields.io/badge/🤗_Hub-View_All-yellow?style=flat-square)](https://huggingface.co/alenphilip) |
+
+</div>
+
+The datasets were **synthetically created** to cover comprehensive code review scenarios across four major categories:
 
 ### 🔐 SECURITY
 - SQL Injection Prevention
