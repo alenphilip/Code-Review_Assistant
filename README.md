@@ -225,11 +225,12 @@ for message in conversation:
 | **400**  | **0.545500**  | **0.595128**    | **0.754338** | **61.993044** | **0.525889** | **9,612,371** | **83.08%** |
 
 <div align="center">
+	
 ### 📈 Training Progress
 
 ![Loss Improvement](https://img.shields.io/badge/Loss_Improvement-24%25_Reduction-brightgreen)
 ![ROUGE-L Gain](https://img.shields.io/badge/ROUGE--L-0.7490_→_0.7543-blue)
-![Accuracy Gain](https://img.shields.io/badge/Accuracy-81.57%_→_83.08%25-green)
+![Accuracy Gain](https://img.shields.io/badge/Accuracy-81.57%25_→_83.08%25-green)
 
 [![Visualize in Weights & Biases](https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg)](https://wandb.ai/alenphilip2071-google/huggingface/runs/d27nrifd)
 </div>
@@ -347,12 +348,12 @@ def record_event(user_id, event_type):
     conn.commit()
     conn.close()
 ```
-**Model Output:**
-Critical Security Issue: SQL Injection in Celery Task
+**Model Output:**  
+Critical Security Issue: SQL Injection in Celery Task  
 
 The Celery task for recording events uses f-string formatting to insert user-provided data directly into a PostgreSQL query. This is a critical SQL injection vulnerability. An attacker could provide a malicious `event_type` like `'; DROP TABLE events; --` to destroy the database table. All input data from external sources must be parameterized.
 
-Fixed Code:
+**Fixed Code:**
 ```python
 # In a Celery task file
 from celery import Celery
@@ -388,12 +389,12 @@ def record_event(self, user_id: int, event_type: str):
         if conn:
             conn.close()
 ```
-🛡️ SECURITY IMPROVEMENTS:
-• Uses parameterized queries to prevent SQL injection
-• Added type hints for better code clarity
-• Proper error handling for database operations
-• Context manager for database connection
-• Comprehensive type hints
+**🛡️ SECURITY IMPROVEMENTS:**  
+• Uses parameterized queries to prevent SQL injection  
+• Added type hints for better code clarity  
+• Proper error handling for database operations  
+• Context manager for database connection  
+• Comprehensive type hints  
 ### Example 2: Performance Optimization
 
 **Input Code:**
@@ -418,8 +419,8 @@ def merge_intervals(intervals):
     return merged
 ```
 
-**Model Output:**
-Algorithm Complexity Optimization: Inefficient Nested Loop
+**Model Output:**  
+Algorithm Complexity Optimization: Inefficient Nested Loop  
 
 The code correctly merges overlapping intervals but uses a nested loop structure that results in an O(n^2) time complexity. For each interval, it iterates through all previous merged intervals to check for overlap. This is inefficient.
 
@@ -446,12 +447,12 @@ def merge_intervals(intervals: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
 
     return merged
 ```
-🎯PERFOMANCE IMPROVEMENTS:
-• Reduced time complexity from O(n²) to O(nlogn)
-• Single pass algorithm instead of nested loops
-• More readable and maintainable code
-• Comprehensive type annotations
-• Better variable naming
+**🎯PERFOMANCE IMPROVEMENTS:**  
+• Reduced time complexity from O(n²) to O(nlogn)  
+• Single pass algorithm instead of nested loops  
+• More readable and maintainable code  
+• Comprehensive type annotations  
+• Better variable naming  
 
 ### Example 3: Pythonic Code Improvements
 
@@ -474,8 +475,8 @@ def get_user(user_id, session):
 get_user(user_id=123)
 ```
 
-**Model Output:**
-Decorator Best Practice: Inflexible Signature Injection
+**Model Output:**  
+Decorator Best Practice: Inflexible Signature Injection  
 
 The decorator modifies the function signature by injecting `session` as an argument. This makes the decorated function inflexible; it can only be called with the new `session` argument. The caller has no control over whether to use a specific session or if one is even needed. A better approach is to use a context manager for the database session and let the context manager handle the lifecycle.
 
@@ -505,13 +506,13 @@ with get_db_session() as my_session:
 # Or let the decorator manage it
 user_from_decorator = get_user(456)
 ```
-🌟 PYTHONIC IMPROVEMENTS:
-• Uses context manager for automatic resource cleanup
-• More flexible function signature
-• Better separation of concerns
-• Caller has control over session management
-• Cleaner API design
-• Proper error handling
+**🌟 PYTHONIC IMPROVEMENTS:**  
+• Uses context manager for automatic resource cleanup  
+• More flexible function signature  
+• Better separation of concerns  
+• Caller has control over session management  
+• Cleaner API design  
+• Proper error handling  
 
 ### Example 4: Production Reliability
 
@@ -531,8 +532,8 @@ with MyContext():
     raise ValueError("Original error")
 ```
 
-**Model Output:**
-Issue: Exception Masking in `__exit__`
+**Model Output:**  
+Issue: Exception Masking in `__exit__`  
 
 An exception raised within the `__exit__` method of a context manager is caught by the `except` block inside `__exit__`. However, if this `except` block itself raises another exception (as it does here), that new exception will be propagated out of the `with` statement, completely masking the original `ValueError`. This makes debugging extremely difficult.
 
@@ -560,12 +561,12 @@ try:
 except ValueError as e:
     logging.critical(f"Successfully caught the original error: {e}")
 ```
-🛠️ Reliability Improvements:
-• Prevents exception masking in context managers
-• Proper logging for debugging and monitoring
-• Clear separation of cleanup errors from business logic errors
-• Maintains original exception context
-• Better error handling patterns
+**🛠️ Reliability Improvements:**  
+• Prevents exception masking in context managers  
+• Proper logging for debugging and monitoring  
+• Clear separation of cleanup errors from business logic errors  
+• Maintains original exception context  
+• Better error handling patterns  
 
 ## 🤖 Model Architecture
 
