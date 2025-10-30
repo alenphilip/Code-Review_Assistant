@@ -36,7 +36,7 @@
 <div align="center">
 
 <h2>🔍 AI Code Review Assistant</h2>
-<h3>Automated Security Analysis • Performance Optimization • Pythonic Best Practices</h3>
+<h3>Automated Security Analysis • Performance Optimization • Pythonic Best Practices • </h3>
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
 ![Model Size](https://img.shields.io/badge/Model-7B_Parameters-green?style=for-the-badge)
@@ -131,48 +131,83 @@ print(result[0]['generated_text'])
 <div align="center">
 
 ### 🔐 Security Vulnerabilities
-![Security](https://via.placeholder.com/600x100/FF6B6B/FFFFFF?text=Security+Vulnerability+Detection)
+
+<div align="center">
+
+<h3 style="color: #FF6B6B;">🛡️ Security Vulnerability Detection</h3>
 
 </div>
 
 | Vulnerability | Example Detection | Fixed Code |
 |---------------|-------------------|------------|
 | **SQL Injection** | `query = "SELECT * FROM users WHERE email = '" + email + "'"` | Parameterized queries |
-| **XSS Vulnerabilities** | Direct HTML rendering without escaping | Proper sanitization |
-| **Authentication Bypass** | Weak password hashing | Secure hashing algorithms |
-| **Command Injection** | `os.system(user_input)` | Input validation + subprocess |
-| **Insecure Deserialization** | `pickle.loads(untrusted_data)` | Safe serialization formats |
+| **XSS Prevention** | `return f"<div>{user_input}</div>"` | HTML escaping, template sanitization |
+| **Authentication Bypass** | `if password == "admin123":` | Secure hashing (bcrypt, argon2) |
+| **Insecure Deserialization** | `pickle.loads(untrusted_data)` | JSON, safe serialization formats |
+| **Command Injection** | `os.system(user_input)` | Input validation, subprocess with args |
+| **JWT Token Security** | No expiration, weak secret | Proper validation, strong secrets |
+| **Hardcoded Secrets** | `API_KEY = "secret123"` | Environment variables, secret management |
+| **Input Validation** | No input checks | Schema validation, sanitization |
+| **File Upload Security** | Direct file save | File type validation, secure storage |
+| **Broken Access Control** | No permission checks | Role-based access control |
+| **Password Storage** | Plain text passwords | Secure hashing with salt |
 
 <div align="center">
 
 ### ⚡ Performance Optimizations
-![Performance](https://via.placeholder.com/600x100/4ECDC4/FFFFFF?text=Performance+Optimization+Suggestions)
+<h3 style="color: #4ECDC4;">🚀 Performance Optimization</h3>
 
 </div>
 
 | Optimization Area | Common Issues | Improvements |
 |-------------------|---------------|--------------|
 | **Algorithm Complexity** | O(n²) nested loops | Optimized to O(n log n) |
-| **Database Queries** | N+1 query problems | Eager loading, indexing |
-| **Memory Management** | Memory leaks, large object creation | Generators, context managers |
-| **I/O Operations** | Synchronous blocking calls | Async/await patterns |
-| **Data Structures** | Inefficient list operations | Sets, dictionaries, deque |
+| **Database Queries** | N+1 query problems | Eager loading, indexing, query optimization |
+| **Memory Leak Detection** | Unclosed resources, circular references | Context managers, weak references |
+| **I/O Operations** | Synchronous blocking calls | Async/await, batch processing |
+| **CPU Operations** | Inefficient computations | Vectorization, parallel processing |
+| **Async/Await Patterns** | Blocking I/O in async functions | Proper async library usage |
+| **Caching Strategies** | Repeated expensive computations | Memoization, Redis caching |
+| **Loop Optimization** | Inefficient iterations | List comprehensions, generator expressions |
+| **Data Structure Selection** | Wrong data structures | Appropriate collections (deque, set, dict) |
+| **Concurrent Execution** | Race conditions, deadlocks | Thread pools, async tasks |
 
 <div align="center">
 
 ### 🐍 Pythonic Code Improvements
-![Pythonic](https://via.placeholder.com/600x100/45B7D1/FFFFFF?text=Pythonic+Code+Best+Practices)
+<h3 style="color: #45B7D1;">🐍 Pythonic Best Practices</h3>
 
 </div>
 
 | Pythonic Principle | Anti-pattern | Best Practice |
 |--------------------|--------------|---------------|
-| **Type Hints** | No type information | Comprehensive type annotations |
-| **Context Managers** | Manual resource management | `with` statements |
+| **Type Hinting** | No type information | Comprehensive type annotations |
+| **Mutable Defaults** | `def func(items=[]):` | `def func(items=None):` |
+| **Context Managers** | Manual resource management | `with` statements, custom context managers |
+| **Decorator Usage** | Complex function wrapping | Clean decorators with `functools.wraps` |
 | **Comprehensions** | Traditional loops | List/dict/set comprehensions |
-| **Error Handling** | Bare exceptions | Specific exception handling |
-| **EAFP vs LBYL** | Look Before You Leap | Easier to Ask Forgiveness |
+| **Class Design** | Poor inheritance hierarchy | Composition over inheritance, ABCs |
+| **Dunder Methods** | Missing special methods | Proper `__str__`, `__repr__`, `__eq__` |
+| **Property Decorators** | Direct attribute access | Computed properties with `@property` |
+| **Generator Expressions** | Building large lists | Lazy evaluation with generators |
+| **Static vs Class Methods** | Misused method types | Proper `@staticmethod` and `@classmethod` |
+| **Import Organization** | Wildcard imports | Explicit imports, proper module structure |
+| **Exception Handling** | Bare except clauses | Specific exceptions, proper hierarchy |
+| **EAFP vs LBYL** | Look Before You Leap | Easier to Ask Forgiveness than Permission |
+| **Syntax Validation** | Basic syntax errors | Code quality tools, linters |
+| **Variable Scope** | Global variable abuse | Proper scoping, function parameters |
+| **Type Compatibility** | Incorrect type operations | Type checking, proper conversions |
 
+<div align="center">
+
+### 🔧 Production Reliability
+<h3 style="color: #FFA500;">🔧 Production Reliability</h3>
+
+</div>
+
+| Reliability Aspect | Common Issues | Best Practices |
+|-------------------|---------------|----------------|
+| **Error Handling & Logging** | Silent failures, no logging | Structured logging, proper exception handling |
 ## 📊 Model Performance
 
 <div align="center">
@@ -190,10 +225,15 @@ print(result[0]['generated_text'])
 | 350  | 0.538000      | 0.595937        | 0.753529 | 61.861999 | 0.525623 | 8,406,525 | 83.06% |
 | **400**  | **0.545500**  | **0.595128**    | **0.754338** | **61.993044** | **0.525889** | **9,612,371** | **83.08%** |
 
-![Training Progress](https://via.placeholder.com/700x300/96CEB4/FFFFFF?text=Training+Metrics+Visualization+-+Steady+Improvement+in+All+Areas)
+<div align="center">
+### 📈 Training Progress
+
+![Loss Improvement](https://img.shields.io/badge/Loss_Improvement-24%25_Reduction-brightgreen)
+![ROUGE-L Gain](https://img.shields.io/badge/ROUGE--L-0.7490_→_0.7543-blue)
+![Accuracy Gain](https://img.shields.io/badge/Accuracy-81.57%_→_83.08%25-green)
 
 [![Visualize in Weights & Biases](https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg)](https://wandb.ai/alenphilip2071-google/huggingface/runs/d27nrifd)
-
+</div>
 </div>
 
 ### 🎯 Final Evaluation Results
@@ -734,6 +774,29 @@ If you use this model in your research or projects, please cite:
 }
 ```
 
+If you use the train dataset in your research or projects, please cite:
+```bibtex
+@misc{alen_philip_george_2025,
+	author       = { Alen Philip George },
+	title        = { Code-Review-Assistant (Revision 57aa4e9) },
+	year         = 2025,
+	url          = { https://huggingface.co/datasets/alenphilip/Code-Review-Assistant },
+	doi          = { 10.57967/hf/6834 },
+	publisher    = { Hugging Face }
+}
+```
+If you use the train dataset in your research or projects, please cite:
+```bibtex
+@misc{alen_philip_george_2025,
+    author       = { Alen Philip George },  
+    title        = { Code-Review-Assistant-Eval (Revision 30002ea) },  
+    year         = 2025,  
+    url          = { https://huggingface.co/datasets/alenphilip/Code-Review-Assistant-Eval },  
+    doi          = { 10.57967/hf/6837 },  
+    publisher    = { Hugging Face }  
+}
+```
+
 ### 📚 Related Publications
 
 ```bibtex
@@ -762,6 +825,6 @@ If you use this model in your research or projects, please cite:
 **Built with ❤️ by Alen Philip George**
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Last Updated](https://img.shields.io/badge/Last_Updated-January_2025-brightgreen)](https://github.com/alenphilip/Code-Review-Assistant)
+[![Last Updated](https://img.shields.io/badge/Last_Updated-October_2025-brightgreen)](https://github.com/alenphilip/Code-Review-Assistant)
 
 </div>
