@@ -1,7 +1,6 @@
 # Code-Review_Assistant
 Code Review Assistant: AI-powered Python code analysis tool that detects security vulnerabilities, optimizes performance, and enforces Pythonic best practices. Fine-tuned from Qwen2.5-7B using SFT Trainer &amp; QLoRA, it provides automated code reviews with detailed explanations and corrected code examples.
 
-```markdown
 # 🚀 Code Review Assistant: AI-Powered Python Code Analysis
 
 <div align="center">
@@ -639,4 +638,3 @@ If you use this model in your research or projects, please cite:
 [![Last Updated](https://img.shields.io/badge/Last_Updated-January_2025-brightgreen)](https://github.com/alenphilip/Code-Review-Assistant)
 
 </div>
-```
