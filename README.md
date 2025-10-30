@@ -138,7 +138,7 @@ for message in conversation:
 ### 🛡️ Security Vulnerabilities
 
 </div>
-<div align="center">
+
 | Vulnerability | Example Detection | Fixed Code |
 |---------------|-------------------|------------|
 | **SQL Injection** | `query = "SELECT * FROM users WHERE email = '" + email + "'"` | Parameterized queries |
@@ -152,6 +152,7 @@ for message in conversation:
 | **File Upload Security** | Direct file save | File type validation, secure storage |
 | **Broken Access Control** | No permission checks | Role-based access control |
 | **Password Storage** | Plain text passwords | Secure hashing with salt |
+
 
 <div align="center">
 
@@ -783,7 +784,7 @@ If you use the train dataset in your research or projects, please cite:
 	publisher    = { Hugging Face }
 }
 ```
-If you use the train dataset in your research or projects, please cite:
+If you use the evaluation dataset in your research or projects, please cite:
 ```bibtex
 @misc{alen_philip_george_2025,
     author       = { Alen Philip George },  
