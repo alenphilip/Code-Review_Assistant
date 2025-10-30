@@ -35,7 +35,12 @@
 
 <div align="center">
 
-![Code Review Process](https://via.placeholder.com/800x200/4A90E2/FFFFFF?text=AI+Code+Review+Assistant+-+Detect+Security+Issues+and+Improve+Code+Quality)
+<h2>🔍 AI Code Review Assistant</h2>
+<h3>Automated Security Analysis • Performance Optimization • Pythonic Best Practices</h3>
+
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
+![Model Size](https://img.shields.io/badge/Model-7B_Parameters-green?style=for-the-badge)
+![Fine-tuning](https://img.shields.io/badge/Fine--tuned-QLoRA_SFT-orange?style=for-the-badge)
 
 </div>
 
@@ -284,121 +289,244 @@ graph LR
 
 ## 🎯 Usage Examples
 
-### Example 1: SQL Injection Detection
+### Example 1: 🔐 Security Vulnerability Detection
 
 **Input Code:**
 ```python
-def get_user_by_email(email):
-    query = "SELECT * FROM users WHERE email = '" + email + "'"
-    cursor.execute(query)
-    return cursor.fetchone()
-```
+# In a Celery task file
+from celery import Celery
+import psycopg2
 
+app = Celery('tasks', broker='redis://localhost')
+
+@app.task
+def record_event(user_id, event_type):
+    conn = psycopg2.connect(dsn="...")
+    cursor = conn.cursor()
+    sql = f"INSERT INTO events (user_id, event_type) VALUES ({user_id}, '{event_type}')"
+    cursor.execute(sql)
+    conn.commit()
+    conn.close()
+```
 **Model Output:**
-```
-🔐 CRITICAL SECURITY ISSUE: SQL Injection Vulnerability
+Critical Security Issue: SQL Injection in Celery Task
 
-The code uses string concatenation to build SQL queries, making it vulnerable to SQL injection attacks.
+The Celery task for recording events uses f-string formatting to insert user-provided data directly into a PostgreSQL query. This is a critical SQL injection vulnerability. An attacker could provide a malicious `event_type` like `'; DROP TABLE events; --` to destroy the database table. All input data from external sources must be parameterized.
 
-✅ FIXED CODE:
+Fixed Code:
 ```python
-def get_user_by_email(email: str) -> Optional[tuple]:
-    query = "SELECT * FROM users WHERE email = %s"
-    cursor.execute(query, (email,))
-    return cursor.fetchone()
-```
+# In a Celery task file
+from celery import Celery
+import psycopg2
+from psycopg2 import extensions
 
+app = Celery('tasks', broker='redis://localhost')
+
+@app.task(bind=True, name='record_event')
+def record_event(self, user_id: int, event_type: str):
+    if not isinstance(user_id, int) or user_id < 1:
+        raise ValueError("Invalid user ID")
+    
+    # Sanitize the event type to prevent SQL injection.
+    # For a production system, a whitelist of allowed types would be ideal.
+    if not event_type.isalnum():
+        raise ValueError("Invalid event type format")
+
+    conn = None
+    try:
+        conn = psycopg2.connect(dsn="...")
+        with conn.cursor() as cursor:
+            sql = "INSERT INTO events (user_id, event_type) VALUES (%s, %s)"
+            cursor.execute(sql, (user_id, event_type))
+        
+        conn.commit()
+        self.logger.info(f"Event recorded: user_id={user_id}, event_type='{event_type}'")
+    except psycopg2.Error as e:
+        self.logger.error(f"Failed to record event: {e}")
+        conn.rollback()
+        raise
+    finally:
+        if conn:
+            conn.close()
+```
 🛡️ SECURITY IMPROVEMENTS:
 • Uses parameterized queries to prevent SQL injection
 • Added type hints for better code clarity
 • Proper error handling for database operations
-```
-
+• Context manager for database connection
+• Comprehensive type hints
 ### Example 2: Performance Optimization
 
 **Input Code:**
 ```python
-def find_duplicates(data):
-    duplicates = []
-    for i in range(len(data)):
-        for j in range(i + 1, len(data)):
-            if data[i] == data[j]:
-                duplicates.append(data[i])
-    return duplicates
+def merge_intervals(intervals):
+    if not intervals:
+        return []
+    intervals.sort(key=lambda x: x[0])
+    merged = [intervals[0]]
+    for i in range(1, len(intervals)):
+        last_merged = merged[-1]
+        current = intervals[i]
+        # Check against all previously merged intervals
+        was_merged = False
+        for j in range(len(merged)):
+            if max(merged[j][0], current[0]) <= min(merged[j][1], current[1]):
+                merged[j] = [min(merged[j][0], current[0]), max(merged[j][1], current[1])]
+                was_merged = True
+                break
+        if not was_merged:
+            merged.append(current)
+    return merged
 ```
 
 **Model Output:**
-```
-⚡ PERFORMANCE ISSUE: O(n²) Time Complexity
+Algorithm Complexity Optimization: Inefficient Nested Loop
 
-The nested loop approach has quadratic time complexity, which becomes inefficient for large datasets.
+The code correctly merges overlapping intervals but uses a nested loop structure that results in an O(n^2) time complexity. For each interval, it iterates through all previous merged intervals to check for overlap. This is inefficient.
 
-✅ OPTIMIZED CODE:
+A more optimal approach is to sort the intervals by their start times and then iterate through them once. For each interval, you either merge it with the current 'active' interval or add it as a new active interval. This ensures that each interval is only processed once, resulting in an O(n log n) time complexity overall.
+
+Fixed Code:
 ```python
-from collections import Counter
+from typing import List, Tuple
 
-def find_duplicates(data: List[Any]) -> List[Any]:
-    counter = Counter(data)
-    return [item for item, count in counter.items() if count > 1]
-```
+def merge_intervals(intervals: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
+    if not intervals:
+        return []
 
-🎯 IMPROVEMENTS:
-• Reduced time complexity from O(n²) to O(n)
-• Uses Counter for efficient frequency counting
-• More readable and Pythonic implementation
+    # Sort intervals by their start times
+    intervals.sort(key=lambda x: x[0])
+
+    merged = []
+    for interval in intervals:
+        if not merged or merged[-1][1] < interval[0]:
+            merged.append(interval)
+        else:
+            # Merge with the last interval
+            merged[-1] = (merged[-1][0], max(merged[-1][1], interval[1]))
+
+    return merged
 ```
+🎯PERFOMANCE IMPROVEMENTS:
+• Reduced time complexity from O(n²) to O(nlogn)
+• Single pass algorithm instead of nested loops
+• More readable and maintainable code
+• Comprehensive type annotations
+• Better variable naming
 
 ### Example 3: Pythonic Code Improvements
 
 **Input Code:**
 ```python
-class DataProcessor:
-    def __init__(self):
-        self.file = None
-        
-    def open_file(self, filename):
-        self.file = open(filename, 'r')
-        
-    def process(self):
-        data = self.file.read()
-        return data.upper()
-        
-    def close_file(self):
-        self.file.close()
+def inject_db_session(func):
+    def wrapper(*args, **kwargs):
+        session = get_db_session()
+        try:
+            return func(session, *args, **kwargs)
+        finally:
+            session.close()
+    return wrapper
+
+@inject_db_session
+def get_user(user_id, session):
+    return session.query(User).get(user_id)
+
+# This call fails
+get_user(user_id=123)
 ```
 
 **Model Output:**
-```
-🐍 PYTHONIC CODE IMPROVEMENT: Resource Management
+Decorator Best Practice: Inflexible Signature Injection
 
-The current implementation requires manual resource management, which is error-prone.
+The decorator modifies the function signature by injecting `session` as an argument. This makes the decorated function inflexible; it can only be called with the new `session` argument. The caller has no control over whether to use a specific session or if one is even needed. A better approach is to use a context manager for the database session and let the context manager handle the lifecycle.
 
-✅ PYTHONIC SOLUTION:
+Fixed Code:
 ```python
 from contextlib import contextmanager
 
-class DataProcessor:
-    @staticmethod
-    @contextmanager
-    def open_file(filename: str):
-        try:
-            with open(filename, 'r') as file:
-                yield file.read().upper()
-        except IOError as e:
-            print(f"Error processing file: {e}")
-            raise
+@contextmanager
+def db_session():
+    session = get_db_session()
+    try:
+        yield session
+    finally:
+        session.close()
 
-# Usage:
-with DataProcessor.open_file('data.txt') as processed_data:
-    print(processed_data)
+def get_user(user_id: int):
+    # The function now accepts a session or None
+    with db_session() as session:
+        if session is None:
+            raise RuntimeError('Session was not provided')
+        return session.query(User).get(user_id)
+
+# Callers can choose to use their own session
+with get_db_session() as my_session:
+    user = get_user(123, session=my_session)
+
+# Or let the decorator manage it
+user_from_decorator = get_user(456)
 ```
-
-🌟 IMPROVEMENTS:
+🌟 PYTHONIC IMPROVEMENTS:
 • Uses context manager for automatic resource cleanup
-• Eliminates manual open/close operations
-• Better error handling and exception safety
-• More elegant API design
+• More flexible function signature
+• Better separation of concerns
+• Caller has control over session management
+• Cleaner API design
+• Proper error handling
+
+### Example 4: Production Reliability
+
+**Input Code:**
+```python
+class MyContext:
+    def __enter__(self):
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        try:
+            # cleanup can also fail
+            raise TypeError("Cleanup failed")
+        except TypeError:
+            print("Caught cleanup error")
+
+with MyContext():
+    raise ValueError("Original error")
 ```
+
+**Model Output:**
+Issue: Exception Masking in `__exit__`
+
+An exception raised within the `__exit__` method of a context manager is caught by the `except` block inside `__exit__`. However, if this `except` block itself raises another exception (as it does here), that new exception will be propagated out of the `with` statement, completely masking the original `ValueError`. This makes debugging extremely difficult.
+
+Fixed Code:
+```python
+import logging
+
+class MyContext:
+    def __enter__(self):
+        logging.info("Entering context.")
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        logging.info("Exiting context.")
+        try:
+            raise TypeError("Cleanup failed")
+        except TypeError as e:
+            logging.error("A cleanup failure occurred.", exc_info=True)
+            # Do not re-raise; let the original exception propagate.
+            return False
+
+try:
+    with MyContext():
+        raise ValueError("Original error")
+except ValueError as e:
+    logging.critical(f"Successfully caught the original error: {e}")
+```
+🛠️ Reliability Improvements:
+• Prevents exception masking in context managers
+• Proper logging for debugging and monitoring
+• Clear separation of cleanup errors from business logic errors
+• Maintains original exception context
+• Better error handling patterns
 
 ## 🤖 Model Architecture
 
@@ -454,7 +582,8 @@ def preprocess_logits_for_metrics(logits, labels):
 
 <div align="center">
 
-![Dataset Creation](https://via.placeholder.com/700x200/F7DC6F/FFFFFF?text=Synthetic+Dataset+Creation+-+15K+Carefully+Crafted+Python+Examples)
+<h3>📚 Synthetic Dataset Creation</h3>
+<h4>15K+ Carefully Crafted Python Examples</h4>
 
 </div>
 
