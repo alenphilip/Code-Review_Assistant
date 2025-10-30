@@ -124,6 +124,11 @@ messages = [
 
 result = pipe(messages)
 print(result[0]['generated_text'])
+for message in conversation:
+    print(f"\n{message['role'].upper()}:")
+    print("-" * 50)
+    print(message['content'])
+    print()
 ```
 
 ## 🛡️ What It Detects
