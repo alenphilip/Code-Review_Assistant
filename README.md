@@ -131,18 +131,13 @@ for message in conversation:
     print()
 ```
 
-## 🛡️ What It Detects
+##  What It Detects
 
 <div align="center">
 
-### 🔐 Security Vulnerabilities
-
-<div align="center">
-
-<h3 style="color: #FF6B6B;">🛡️ Security Vulnerability Detection</h3>
+### 🛡️ Security Vulnerabilities
 
 </div>
-
 | Vulnerability | Example Detection | Fixed Code |
 |---------------|-------------------|------------|
 | **SQL Injection** | `query = "SELECT * FROM users WHERE email = '" + email + "'"` | Parameterized queries |
@@ -160,7 +155,6 @@ for message in conversation:
 <div align="center">
 
 ### ⚡ Performance Optimizations
-<h3 style="color: #4ECDC4;">🚀 Performance Optimization</h3>
 
 </div>
 
@@ -180,7 +174,6 @@ for message in conversation:
 <div align="center">
 
 ### 🐍 Pythonic Code Improvements
-<h3 style="color: #45B7D1;">🐍 Pythonic Best Practices</h3>
 
 </div>
 
@@ -206,7 +199,6 @@ for message in conversation:
 <div align="center">
 
 ### 🔧 Production Reliability
-<h3 style="color: #FFA500;">🔧 Production Reliability</h3>
 
 </div>
 
