@@ -44,7 +44,12 @@
 
 </div>
 
-The **Code Review Assistant** is a state-of-the-art AI model fine-tuned from **Qwen2.5-7B-Instruct** using **Supervised Fine-Tuning (SFT)** and **QLoRA** for specialized Python code analysis. It automatically reviews Python code, identifies security vulnerabilities, suggests performance optimizations, and enforces Pythonic best practices with detailed explanations and corrected code examples.
+The **Code Review Assistant** is a state-of-the-art AI model fine-tuned from **Qwen2.5-7B-Instruct** using **Supervised Fine-Tuning (SFT)** and **QLoRA** for specialized Python code analysis. It automatically reviews Python code, identifies security vulnerabilities, suggests performance optimizations, and enforces Pythonic best practices with detailed explanations and corrected code examples. 
+
+An AI Model That Reviews AND Fixes Your Python Code  
+**→ Takes buggy/vulnerable Python code as input.**  
+**→ provides security analysis, performance optimization and Pythonic improvements**  
+**→ OUTPUTS REVIEW + CORRECTED, PRODUCTION-READY CODE.**  
 
 ### 🎯 Key Features
 
